@@ -46,8 +46,6 @@ For flashing the ESP32 with MicroPython, use the following firmware:
 
 ## Hardware Configuration
 
-### Client/Server / MQTT Broker
-
 - This setup supports a **PWM Servo Version** configuration.
 
 ### Wiring Diagram
