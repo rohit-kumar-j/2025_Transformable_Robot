@@ -56,12 +56,14 @@ For flashing the ESP32 with MicroPython, use the following firmware:
 - **Battery 2 (30C):**  
   Connect to the PCA9685, which drives 5 servos.
 
+Remember to double check the voltages. Matching them to the specifications of the boards.
+
 ---
 
 ## Flashing the ESP32
 
 1. **Flash Firmware:**  
-   Use the specified MicroPython firmware to flash the ESP32.
+   Use the specified MicroPython firmware to flash the ESP32. Use their tutorial to troubleshoot.
 
 2. **File System Access:**  
    Use Thonny IDE to access and manage the ESP32 file system.
