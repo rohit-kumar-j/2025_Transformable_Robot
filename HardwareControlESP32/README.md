@@ -1,55 +1,76 @@
-# How to Run the Robot Simulation
 
-<!-- > **Note:** This setup is still in progress and might require adjustments. Please ensure that each step works as expected before proceeding. -->
+
+# Robot Setup & Configuration Guide
+
+> **Note:** This procedure is experimental and may not be complete. Please verify each step before implementation.
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Software Installation](#software-installation)
-- [Running the Simulation](#running-the-simulation)
-- [Output & Results](#output--results)
+- [Software Preparation](#software-preparation)
+- [ESP32 MicroPython Setup](#esp32-micropython-setup)
+- [Development Tools](#development-tools)
+- [Hardware Configuration](#hardware-configuration)
+  - [Client/Server / MQTT Broker](#clientserver--mqtt-broker)
+  - [Wiring Diagram](#wiring-diagram)
+- [Flashing the ESP32](#flashing-the-esp32)
+- [Optional OTA Setup](#optional-ota-setup)
 
 ---
 
-## Prerequisites
+## Software Preparation
 
-Before you start, ensure you have the following dependencies installed:
+Ensure you have the following software installed:
 
-- **Python 3.x**  
-  Ensure you are using Python 3.6 or higher to avoid compatibility issues.
-- **System Requirements**  
-  Make sure your system has sufficient memory and processing power to run the simulation. 
+- **Docker(optional**
+- **MQTT Broker**  
+  Example: [Mosquitto MQTT](https://mosquitto.org)
+- **Jupyter Notebook**
+
 ---
 
-## Software Installation
+## ESP32 MicroPython Setup
 
-To install the required libraries, run the following command:
+For flashing the ESP32 with MicroPython, use the following firmware:
 
-```bash
-pip install scipy matplotlib mujoco imageio[ffmpeg] # imageio\[ffmpeg\] in zsh 
-```
-## Running the Simulation
+- **Firmware File:** `LOLIN_C3_MINI-20240602-v1.23.0.bin`  
+  _(Download from the [MicroPython download page](https://micropython.org/download/))_
 
-Once the libraries are installed, navigate to the `code` directory and execute each of the following Python scripts in sequence:
+---
 
-1. **Navigate to the `code` directory:**
+## Development Tools
 
-```bash
-cd code
-```
+- **Thonny IDE**  
+  Used for ESP32 development and accessing the file system.
 
-```bash
-python 1_snake_forward_ft_final.py
-python 1_snake_rotate_ft.py
-python 2_biped_rotate_ft.py
-python 3_dual_snake_rotate_ft.py
-python 4_dual_snake_forward_ft.py
-python 5_dual_snake_worm_ft.py
-python 6_forward_biped_sucess.py
-```
+---
 
-## Output & Results
+## Hardware Configuration
 
-- **Videos:** Each script will generate a corresponding video of the simulation in the same directory.
-- **Auxiliary Data:** Additional data related to the robot's movements, configuration, and other metrics will also be saved in the same directory.
+- This setup supports a **PWM Servo Version** configuration.
 
+### Wiring Diagram
+
+- **Battery 1:**  
+  Connect to the DC-DC converter, then to the ESP32.
+
+- **Battery 2 (30C):**  
+  Connect to the PCA9685, which drives 5 servos.
+
+Remember to double check the voltages. Matching them to the specifications of the boards.
+
+---
+
+## Flashing the ESP32
+
+1. **Flash Firmware:**  
+   Use the specified MicroPython firmware to flash the ESP32. Use their tutorial to troubleshoot.
+
+2. **File System Access:**  
+   Use Thonny IDE to access and manage the ESP32 file system.
+
+---
+
+## Optional OTA Setup
+
+- **OTA (Over-The-Air) Updates:**  
+  Optionally, set up OTA using `webrepl` for remote access and updates.
