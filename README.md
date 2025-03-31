@@ -23,7 +23,7 @@ Maintainer: Jiayu Ding, jding14@syr.edu />**
 This projected was initially developed at Syracuse University (Dynamic Locomotion and Robotics Lab).
 
 
-<img src="/Modular_IROS.png" alt="Modular" width="50%" height="50%">
+<img src="/Modular_IROS.png" alt="Modular" width="75%" height="75%">
 
 ## Publications
 
