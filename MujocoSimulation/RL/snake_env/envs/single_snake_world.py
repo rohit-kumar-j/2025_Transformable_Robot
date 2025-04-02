@@ -224,7 +224,7 @@ class SingleModuleWorldEnv(MujocoEnv, utils.EzPickle):
             "human",
             "rgb_array",
             "depth_array",
-            "rgbd_tuple",
+            # "rgbd_tuple",
         ],
     }
 

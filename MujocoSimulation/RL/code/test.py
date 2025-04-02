@@ -25,7 +25,7 @@ env_name = "SingleModuleWorldEnv-v0"
 # # Save the trained model
 # model.save("ppo_snake")
 # Load the trained model
-model = PPO.load("ppo_checkpoints/ppo_model_10000000_steps")
+model = PPO.load("ppo_checkpoints/ppo_model_100000_steps")
 
 env = gym.make(env_name, render_mode="human")
 obs, info = env.reset()

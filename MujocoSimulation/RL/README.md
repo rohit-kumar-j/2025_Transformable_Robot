@@ -14,8 +14,17 @@ which python # check python executable path to make sure that it is the correct 
 #train
 cd MujocoSimulation/RL/code
 python train.py
+
+#test
 python test.py # to view the results
 ```
+
+### NOTE
+to test the currnet checkpoint, modify the line:
+```python
+model = PPO.load("ppo_checkpoints/ppo_model_100000_steps")
+```
+with which checkpoint of interest
 
 ## Viewing results with tensorboard
 In another terminal run:

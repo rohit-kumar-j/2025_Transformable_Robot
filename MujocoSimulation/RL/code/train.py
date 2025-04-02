@@ -22,6 +22,7 @@ env_name = "SingleModuleWorldEnv-v0"
 # Create and vectorize the environment
 # env = gym.make("Humanoid-v5")
 env = gym.make(env_name)
+
 # env = DummyVecEnv([lambda: env])  # Needed for SB3
 
 # Instantiate the PPO agent
