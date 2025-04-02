@@ -1,7 +1,0 @@
-matplotlib
-numpy
-torch
-mujoco
-imageio[ffmpeg]
-gymnasium[full]
-stable-baselines3
