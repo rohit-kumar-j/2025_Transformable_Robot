@@ -25,7 +25,7 @@ env_name = "SingleModuleWorldEnv-v0"
 # # Save the trained model
 # model.save("ppo_snake")
 # Load the trained model
-model = PPO.load("ppo_checkpoints/ppo_model_100000_steps")
+model = PPO.load("ppo_checkpoints/ppo_model_9600000_steps")
 
 env = gym.make(env_name, render_mode="human")
 obs, info = env.reset()
@@ -34,12 +34,12 @@ obs, info = env.reset()
 #     obs, reward, done, _ = env.step(action)
 #     env.render()
 # Define the size of the dataset
-num_entries = 1000
+num_entries = 10000
 num_features = 5
 data = np.zeros((num_entries, num_features))
 data2 = np.zeros((num_entries, num_features))
 
-for i in range(1000):
+for i in range(10000):
     action, _ = model.predict(obs)
     obs, reward, done, _, _ = env.step(action)  # ✅ Fix: Use 5-return Gymnasium API
     # print("reward:", reward)

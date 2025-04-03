@@ -17,6 +17,7 @@ python train.py
 
 #test
 python test.py # to view the results
+python test_tracking_body.py # to view the results with body tracking
 ```
 
 ### NOTE
