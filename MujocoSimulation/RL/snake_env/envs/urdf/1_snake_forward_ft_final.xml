@@ -1,7 +1,7 @@
 <mujoco>
   <compiler autolimits="true" angle="degree"/>
   <!-- <option timestep="0.005" gravity="0 0 0"/> -->
-  <option timestep="0.005" gravity="0 0 -9.81"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
   <visual>
     <global offwidth="1920" offheight="1080"/>
   </visual>
@@ -20,7 +20,7 @@
   </asset>
 
   <default>
-    <joint damping="5"/>
+    <joint damping="7"/>
     <geom friction="1.0 0.002 0.3"/>
   </default>
 
@@ -87,11 +87,11 @@
   </worldbody>
 
   <actuator>
-    <position name="m1_act" joint="m1" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-30 30"/>
-    <position name="m2_act" joint="m2" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-30 30"/>
-    <position name="m3_act" joint="m3" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-30 30"/>
-    <position name="m4_act" joint="m4" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-30 30"/>
-    <position name="m5_act" joint="m5" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-30 30"/>
+    <position name="m1_act" joint="m1" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-15 15"/>
+    <position name="m2_act" joint="m2" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-15 15"/>
+    <position name="m3_act" joint="m3" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-15 15"/>
+    <position name="m4_act" joint="m4" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-15 15"/>
+    <position name="m5_act" joint="m5" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-15 15"/>
   </actuator>
 
   <sensor>

@@ -234,7 +234,7 @@ class SingleModuleWorldEnv(MujocoEnv, utils.EzPickle):
         frame_skip: int = 5,
         default_camera_config: Dict[str, Union[float, int]] = DEFAULT_CAMERA_CONFIG,
         forward_reward_weight: float = 1,
-        angular_vel_reward_weight: float = 6.0,
+        angular_vel_reward_weight: float = 3.0,
         ctrl_cost_weight: float = 0.5,
         contact_cost_weight: float = 5e-4,
         terminate_when_unhealthy: bool = True,
@@ -327,13 +327,13 @@ class SingleModuleWorldEnv(MujocoEnv, utils.EzPickle):
         self.do_simulation(action, self.frame_skip)
         # xy_position_after = self.data.body(self._main_body).xpos[:2].copy()
         y_position_after = self.data.sensordata[1].copy()
-        ang_vel = self.data.sensordata[3].copy()
+        ang_vel = -self.data.sensordata[3].copy() # the minus sign is to reverse the rotational direction
 
         y_velocity = (y_position_after - y_position_before) / self.dt
 
         observation = self._get_obs()
         reward, reward_info = self._get_rew(y_velocity, ang_vel, action)
-        terminated = True if self.data.time > 10.0 else False
+        terminated = True if self.data.time > 20.0 else False
         info = {
             "x_position": self.data.qpos[0],
             "y_position": self.data.qpos[1],

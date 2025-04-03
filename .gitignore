@@ -3,6 +3,7 @@ __pycache__
 **_tensorboard
 py3_12
 MUJOCO_LOG.TXT
+py312_test
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python

@@ -17,11 +17,14 @@ from snake_env.envs.single_snake_world import SingleModuleWorldEnv
 import gymnasium as gym
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
+from stable_baselines3.common.env_util import make_vec_env
+
 
 env_name = "SingleModuleWorldEnv-v0"
 # Create and vectorize the environment
-# env = gym.make("Humanoid-v5")
-env = gym.make(env_name)
+# env = gym.make(env_name)
+env = make_vec_env(env_name, n_envs=6)
+
 
 # env = DummyVecEnv([lambda: env])  # Needed for SB3
 
