@@ -4,6 +4,7 @@ from typing import Dict, Tuple, Union
 
 import numpy as np
 import os
+import mujoco
 
 from gymnasium import utils
 from gymnasium.envs.mujoco import MujocoEnv
@@ -224,14 +225,14 @@ class SingleModuleWorldEnv(MujocoEnv, utils.EzPickle):
             "human",
             "rgb_array",
             "depth_array",
-            # "rgbd_tuple",
+            "rgbd_tuple",
         ],
     }
 
     def __init__(
         self,
         # xml_file: str = "1_snake_forward_ft_final.xml",
-        frame_skip: int = 5,
+        frame_skip: int = 2,
         default_camera_config: Dict[str, Union[float, int]] = DEFAULT_CAMERA_CONFIG,
         forward_reward_weight: float = 1,
         angular_vel_reward_weight: float = 3.0,
@@ -323,23 +324,29 @@ class SingleModuleWorldEnv(MujocoEnv, utils.EzPickle):
 
 
     def step(self, action):
+        # print("self.data.sensordata: ",self.data.sensordata)
+        self._rotate_around_z = True
+
         y_position_before = self.data.sensordata[1].copy()
         self.do_simulation(action, self.frame_skip)
         # xy_position_after = self.data.body(self._main_body).xpos[:2].copy()
         y_position_after = self.data.sensordata[1].copy()
-        ang_vel = -self.data.sensordata[3].copy() # the minus sign is to reverse the rotational direction
-
-        y_velocity = (y_position_after - y_position_before) / self.dt
+        if(self._rotate_around_z):
+            ang_vel = -self.data.sensordata[5].copy() # NOTE: Maybe try [4] instead of [5]
+            linear_velocity = -2;
+        else:
+            ang_vel = -self.data.sensordata[3].copy() # the minus sign is to reverse the rotational direction
+            linear_velocity = (y_position_after - y_position_before) / self.dt
 
         observation = self._get_obs()
-        reward, reward_info = self._get_rew(y_velocity, ang_vel, action)
+        reward, reward_info = self._get_rew(linear_velocity, ang_vel, action)
         terminated = True if self.data.time > 20.0 else False
         info = {
             "x_position": self.data.qpos[0],
             "y_position": self.data.qpos[1],
             "distance_from_origin": np.linalg.norm(self.data.sensordata[5:], ord=2),
             "x_velocity": None,
-            "y_velocity": y_velocity,
+            "y_velocity": linear_velocity,
             **reward_info,
         }
 
@@ -348,19 +355,24 @@ class SingleModuleWorldEnv(MujocoEnv, utils.EzPickle):
         # truncation=False as the time limit is handled by the `TimeLimit` wrapper added during `make`
         return observation, reward, terminated, False, info
 
-    def _get_rew(self, x_velocity: float, ang_vel:float, action):
-        forward_reward = x_velocity * self._forward_reward_weight
+    def _get_rew(self, linear_velocity: float, ang_vel:float, action):
+        forward_reward = linear_velocity * self._forward_reward_weight
         rotation_reward = ang_vel * self._angular_vel_reward_weight
+        if(self._rotate_around_z):
+           # rotation_reward += -1*(abs(self.data.sensordata[7]) + abs(self.data.sensordata[8]) + abs(self.data.sensordata[9]))
+           rotation_reward -= 0.25 * np.sum(abs(self.data.qacc))
         rewards = forward_reward + rotation_reward
 
         # ctrl_cost = self.control_cost(action)
         # contact_cost = self.contact_cost
         # costs = ctrl_cost + contact_cost
+        control_cost = self._ctrl_cost_weight * np.sum(np.square(action))
 
-        reward = rewards #- costs
+        reward = rewards - control_cost
 
         reward_info = {
             "reward_forward": forward_reward,
+            "rotation_reward": rotation_reward,
             # "reward_ctrl": -ctrl_cost,
             # "reward_contact": -contact_cost,
         }

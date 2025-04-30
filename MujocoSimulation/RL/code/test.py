@@ -13,18 +13,6 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
 
 env_name = "SingleModuleWorldEnv-v0"
-# Create and vectorize the environment
-# env = gym.make("Humanoid-v5")
-# env = gym.make(env_name)
-# # env = DummyVecEnv([lambda: env])  # Needed for SB3
-#
-# # Instantiate the PPO agent
-# model = PPO("MlpPolicy", env, verbose=1)
-# model.learn(total_timesteps=100000)
-#
-# # Save the trained model
-# model.save("ppo_snake")
-# Load the trained model
 model = PPO.load("ppo_checkpoints/ppo_model_9600000_steps")
 
 env = gym.make(env_name, render_mode="human")

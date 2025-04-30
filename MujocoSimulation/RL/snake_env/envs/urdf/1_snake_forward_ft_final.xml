@@ -1,7 +1,7 @@
 <mujoco>
   <compiler autolimits="true" angle="degree"/>
   <!-- <option timestep="0.005" gravity="0 0 0"/> -->
-  <option timestep="0.005" gravity="0 0 -9.81"/>
+  <option timestep="0.003" gravity="0 0 -9.81"/>
   <visual>
     <global offwidth="1920" offheight="1080"/>
   </visual>
@@ -20,7 +20,7 @@
   </asset>
 
   <default>
-    <joint damping="6"/>
+    <joint damping="10"/>
     <geom friction="1.0 0.002 0.3"/>
   </default>
 
@@ -36,7 +36,7 @@
     <light name="spotlight" mode="targetbodycom" castshadow="true" directional="true" target="snake" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="0 -6 4" cutoff="30"/>
     <!-- <light name="top" pos="0 0 2" mode="trackcom"/> -->
     <!-- <body name="snake" pos="-2.5 0 0.407" euler="90 180 180"> -->
-    <body name="snake" pos="-2.5 2 0.205"> <!-- Weight: 130 grams -->
+    <body name="snake" pos="-2.5 2 0.35" euler="90 0 0"> <!-- Weight: 130 grams -->
       <freejoint/>
       <!-- <joint type="hinge" axis="1 0 0"/> -->
       <geom type="mesh" mesh="motor" pos="0 -0.01 0.01" euler="90 90 0" rgba="0.2 0.2 0.2 1" mass="0.110" />
@@ -87,16 +87,17 @@
   </worldbody>
 
   <actuator>
-    <position name="m1_act" joint="m1" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-10 10"/>
-    <position name="m2_act" joint="m2" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-10 10"/>
-    <position name="m3_act" joint="m3" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-10 10"/>
-    <position name="m4_act" joint="m4" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-10 10"/>
-    <position name="m5_act" joint="m5" kp="60" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-10 10"/>
+    <position name="m1_act" joint="m1" kp="160" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-25 25"/>
+    <position name="m2_act" joint="m2" kp="160" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-25 25"/>
+    <position name="m3_act" joint="m3" kp="160" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-25 25"/>
+    <position name="m4_act" joint="m4" kp="160" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-25 25"/>
+    <position name="m5_act" joint="m5" kp="160" ctrllimited="false" forcelimited="true" ctrlrange="-1 1" forcerange="-25 25"/>
   </actuator>
 
   <sensor>
     <framepos name="distance_from_origin" objtype="body" objname="m4_r" reftype="site" refname="origin"/>
     <frameangvel name="rx" objtype="body" objname="m4_r"/>
+    <!-- <framequat name="orn" objtype="body" objname="m4_r" reftype="site" refname="origin"/> -->
     <!-- <framequat name="IMU" objtype="body" objname="m4_r"/> -->
     <jointpos name="m1_act" joint="m1"/>
     <jointpos name="m2_act" joint="m2"/>

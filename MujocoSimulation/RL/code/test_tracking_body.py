@@ -15,7 +15,7 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
 
 env_name = "SingleModuleWorldEnv-v0"
-model = PPO.load("ppo_checkpoints/ppo_model_9600000_steps")
+model = PPO.load("ppo_checkpoints/ppo_model_8400000_steps")
 
 env = gym.make(env_name, render_mode="human")
 env = env.unwrapped
@@ -27,7 +27,7 @@ cam_id  = mujoco.mj_name2id(env.model, mujoco.mjtObj.mjOBJ_GEOM, 'tracking_cam')
 viewer.cam.trackbodyid = cam_id
 
 # To create graph
-enable_logging = True
+enable_logging = False
 num_entries = 10000
 num_features = 5
 data = np.zeros((num_entries, num_features))
